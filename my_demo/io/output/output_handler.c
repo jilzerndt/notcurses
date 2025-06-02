@@ -212,3 +212,11 @@ void output_handler_get_screen_size(unsigned* rows, unsigned* cols) {
 
     notcurses_term_dim_yx(io_handler_ref->nc, rows, cols);
 }
+
+bool output_handler_render(void) {
+    if (!io_handler_ref) {
+        return false;
+    }
+    
+    return io_handler_render(io_handler_ref);
+}

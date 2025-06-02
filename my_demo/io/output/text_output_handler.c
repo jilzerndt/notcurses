@@ -346,8 +346,6 @@ struct ncplane* text_output_display_shadow_text(int y, int x, output_color_t fg_
     // Draw main text
     text_output_print_overlay(overlay, 0, 1, fg_color, style, "%s", buffer);
     
-    // Render to display
-    io_handler_render(io_handler_ref);
     
     return overlay;
 }
@@ -422,8 +420,6 @@ struct ncplane* text_output_display_caption(int y, output_color_t fg_color,
     ncplane_set_channels(overlay, channels);
     ncplane_set_styles(overlay, style);
     
-    // Render the caption
-    io_handler_render(io_handler_ref);
     
     return overlay;
 }

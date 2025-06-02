@@ -6,6 +6,17 @@
 #include <notcurses/notcurses.h>
 #include "output_handler.h"
 
+/*
+ * RENDERING APPROACH:
+ * This text output handler does NOT perform automatic rendering.
+ * All functions modify plane content only. To display changes:
+ * 1. Call text output functions to modify plane content
+ * 2. Call output_handler_render() when ready to display
+ * 
+ * This allows efficient batching of multiple text operations
+ * and leverages notcurses' automatic damage detection.
+ */
+
 /**
  * Text alignment options
  */
@@ -22,8 +33,7 @@ typedef enum text_style {
     TEXT_STYLE_NORMAL   = 0,
     TEXT_STYLE_BOLD     = NCSTYLE_BOLD,
     TEXT_STYLE_ITALIC   = NCSTYLE_ITALIC,
-    TEXT_STYLE_UNDERLINE = NCSTYLE_UNDERLINE,
-    TEXT_STYLE_BLINK    = NCSTYLE_BLINK
+    TEXT_STYLE_UNDERLINE = NCSTYLE_UNDERLINE
 } text_style_t;
 
 /**
@@ -160,6 +170,7 @@ int text_output_print_overlay(struct ncplane* overlay, int y, int x,
 /**
  * Create a text overlay and display a message with a shadow effect
  * (Useful for dialogs, notifications or captions)
+ * Note: Call output_handler_render() after this to display the shadow text
  * @param y Y-coordinate (row)
  * @param x X-coordinate (column)
  * @param fg_color Foreground color
@@ -174,6 +185,7 @@ struct ncplane* text_output_display_shadow_text(int y, int x, output_color_t fg_
 /**
  * Create and display a centered caption overlay over the full screen
  * (Useful for fullscreen images/videos)
+ * Note: Call output_handler_render() after this to display the caption
  * @param y Y-coordinate (row), use negative value for bottom alignment
  * @param fg_color Foreground color
  * @param style Text style flags (can be combined with |)

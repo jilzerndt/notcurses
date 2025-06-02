@@ -108,4 +108,11 @@ bool output_handler_clear_plane(struct ncplane* plane, output_color_t color);
  */
 void output_handler_get_screen_size(unsigned* rows, unsigned* cols);
 
+/**
+ * Render all changes to the screen using notcurses automatic damage detection
+ * This should be called after making changes to any planes to display updates
+ * @return true on success, false on failure
+ */
+bool output_handler_render(void);
+
 #endif /* OUTPUT_HANDLER_H */

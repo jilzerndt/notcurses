@@ -1,0 +1,59 @@
+I want to create an IO Handler for my own project using the Notcurses library.
+My project is a terminal-based application that requires handling input and output efficiently.
+
+The structure should look something like this:
+
+my_demo/
+├── src/
+│   ├── main.c
+├── io/
+│   ├── io_handler.c // resposible for initializing everything and also for cleanup
+│   ├── io_handler.h
+│   ├── input/
+│   │   ├── input_handler.c // functions for handling input (those functions can then be called in the rest of the project)
+│   │   ├── input_handler.h
+│   ├── output/
+│   │   ├── output_handler.c // handling all the planes etc. for the other output handlers, also init ncchannels for colors
+│   │   ├── output_handler.h
+│   │   ├── text_output_handler.c // functions for handling text output (those functions can then be called in the rest of the project)
+│   │   ├── text_output_handler.h
+│   │   ├── media_output_handler.c // functions for handling media output: .png, .gif and .mp4 files (those functions can then be called in the rest of the project)
+│   │   ├── media_output_handler.h
+│   │   ├── effect_output_handler.c // functions for handling effects on other output like fading, pulsing, etc. (those functions can then be called in the rest of the project)
+│   │   ├── effect_output_handler.h
+│   │   ├── fancy_output_handler.c // functions for handling special output: drawing boxes, menus, etc. (those functions can then be called in the rest of the project)
+│   │   ├── fancy_output_handler.h
+
+
+Some general info about the project:
+
+We are creating an 80-style terminal game called "Dungeon Crawl". 
+The goal for the IO handler is to create a simple interface for handling input and output in the game, 
+such that nowhere outside the /io directory any notcurses functions directly called, and instead we can use the functions in the input and output handlers.
+
+The input handling already works, so no need to create that part.
+The Output handling is not really working yet though. I thought I would just split it into multiple files to make it easier to manage. 
+There may be some things missing from my description, so feel free to add anything you think is necessary.
+The normal output should be able to handle the whole plane creation/management and the ncchannels (colors). 
+The media output should be able to handle .png, .gif and .mp4 files.  
+The effect output should be able to handle fading, pulsing, etc.
+The fancy output should be able to handle drawing boxes, menus, etc.
+
+Add very concise comments to the code and make sure that the documentation is clear and easy to understand.
+The input handling is already working, so no need to create that part!!
+
+Please create the remaining files and implement the functionality described above. 
+
+New file media_output_specific.c functionality:
+- display_image(const char *filename, int x, int y, int width, int height, media_scale_t scale)
+- display_image_fullscreen(const char *filename, media_scale_t scale) 
+- display_image_cell(const char *filename, int x, int y) // display image in a single cell so that we can use it to display our map where the player walks around
+- display_gif(const char *filename, int x, int y, int width, int height, media_scale_t scale)
+- display_gif_fullscreen(const char *filename, media_scale_t scale)
+- display_video(const char *filename, int x, int y, int width, int height, media_scale_t scale)
+- display_video_fullscreen(const char *filename, media_scale_t scale)
+
+please add an explanation as to how I can display text over any fullscreen display  
+
+
+
